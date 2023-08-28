@@ -1,6 +1,6 @@
 @extends('layouts.app-layout')
 @section('page_dependencies')
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.css') }}">--}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {{--    <link rel="stylesheet" href="{{ asset('vendors/select2/select2.min.css') }}">--}}
     {{--    <link rel="stylesheet" href="{{ asset('vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">--}}
@@ -13,13 +13,14 @@
             <div class="col-md-12 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Product Variant for - []</h4>
+{{--                        <h4 class="card-title">Product Variant for - [{{$id}}]</h4>--}}
                         <div class="row">
 
                             <button type="button" class="btn btn-primary btn-icon-text btn-sm ml-auto mb-3 mb-sm-0"
                                     data-toggle="modal" data-target="#add-variant-modal">
                                 <i class="icon-doc btn-icon-prepend"></i> Add Variant
                             </button>
+
 
                             <div class="col-12">
                                 <div class="table-responsive">
@@ -36,15 +37,16 @@
                                         <tbody>
                                         @foreach ($variants as $key => $variant)
                                             <tr>
-                                                <td>{{ $variant->id ?? '' }}</td>
-                                                <td>{{ $variant->name ?? '' }}</td>
-                                                <td>{{ $variant->sap_product_code ?? '' }}</td>
-                                                <td>{{ $variant->web_product_code ?? '' }}</td>
+                                                <td>{{ $variant['id'] ?? '' }}</td>
+                                                <td>{{ $variant['name'] ?? '' }}</td>
+                                                <td>{{ $variant['sap_product_code'] ?? '' }}</td>
+                                                <td>{{ $variant['web_product_code'] ?? '' }}</td>
                                                 <td>
 
                                                     <li class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center">
 
-                                                        <a class="nav-link d-flex align-items-center dropdown-toggle" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                        <a class="nav-link d-flex align-items-center dropdown-toggle"
+                                                           id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                                                             <span class="profile-text font-weight-normal"></span>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
@@ -53,15 +55,15 @@
                                                             <button type="button" class="btn btn-warning btn-icon-text  btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#edit-variant-modal"
-                                                                    data-id="{{ $variant->id   }}"
-                                                                    data-name="{{ $variant->name }}"
-                                                                    data-sap_product_code="{{ $variant->sap_product_code }}"
-                                                                    data-web_product_code="{{ $variant->web_product_code }}"
+                                                                    data-id="{{ $variant['id']   }}"
+                                                                    data-name="{{ $variant['name'] }}"
+                                                                    data-sap_product_code="{{ $variant['sap_product_code'] }}"
+                                                                    data-web_product_code="{{ $variant['web_product_code'] }}"
                                                             >
 
                                                                 <i class="icon-doc btn-icon-prepend"></i> Edit </button>
 
-                                                            <form action="{{ route('variant.destroy', $variant->id ) }}" method="POST"
+                                                            <form action="{{ route('variant.destroy', $variant['id'] ) }}" method="POST"
                                                                   style="display: inline-block;">
                                                                 <input type="hidden" name="_method" value="DELETE">
                                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -125,7 +127,7 @@
     <script>
 
         $('#back_button').click(function () {
-            location.href = '{{ route('product.show',['product' => $id]) }}';
+            location.href = '{{ route('product.show',['product' => $previous ?? '']) }}';
         });
     </script>
 

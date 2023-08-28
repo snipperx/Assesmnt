@@ -16,8 +16,9 @@ class ProductVariantRepository implements ProductVariantInterface
     public function getById($id)
     {
         $id = Product::getIdBySlug($id);
-        $product = Product::findOrFail($id);
-        return  ProductVariant::where('product_id',$product->id)->get();
+        $query = Product::findOrFail($id);
+//        $product = $query->with('categories')->get();
+        return  ProductVariant::getVariantsById($query['id']);
     }
 
     public function delete($id)

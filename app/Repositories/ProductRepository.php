@@ -22,15 +22,17 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getProductById($slug)
     {
+
         $id = Category::getIdBySlug($slug);
         $category = Category::findOrFail($id);
         $collection = $category->product;
 
-       return $collection->map(function ($item) {
+       return $collection->map(function ($item) use ($slug) {
             return [
                 'id' => $item->id,
                 'name' => $item->name,
                 'slug' => $item->slug,
+                'id_slug' => $slug,
             ];
         });
     }
@@ -69,7 +71,9 @@ class ProductRepository implements ProductRepositoryInterface
         $cat = $productData['category_id'];
         foreach ($cat as $categoryId){
             $category = Category::find($categoryId);
-            $product->categories()->attach($category);
+            $product->categories()->allRelatedIds();
+            $product->categories()->sync($category);
+            $product->categories()->allRelatedIds();
         }
 
 
@@ -77,7 +81,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getAvailableProducts()
     {
-        return Product::where('is_available', true);
+        return Product::where('is_active', true);
     }
 
 };

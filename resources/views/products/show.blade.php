@@ -13,7 +13,7 @@
             <div class="col-md-12 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Product</h4>
+                        <h4 class="card-title">Product for [{{$slug}}]</h4>
                         <div class="row">
 
                             <button type="button" class="btn btn-primary btn-icon-text btn-sm ml-auto mb-3 mb-sm-0"
@@ -42,12 +42,11 @@
 
                                                     <li class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center">
 
-                                                        <a class="nav-link d-flex align-items-center dropdown-toggle" id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                        <a class="nav-link d-flex align-items-center dropdown-toggle"
+                                                           id="LanguageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                                                             <span class="profile-text font-weight-normal"></span>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
-{{--                                                            <button type="button" class="btn btn-primary btn-icon-text  btn-sm">--}}
-{{--                                                                <i class="icon-doc btn-icon-prepend"></i> View Product Variant </button>--}}
 
                                                             <a class="btn btn-primary btn-icon-text" data-toggle="tooltip" title="Click to View product variant"
                                                                href="{{ route('variant.show',['variant' => $product['slug']]) }}">View Product Variant</a>

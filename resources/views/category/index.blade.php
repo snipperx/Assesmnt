@@ -30,7 +30,6 @@
                                             <th>Meta Title</th>
                                             <th width="20%">Meta Description</th>
                                             <th width="5%">Meta Keywords</th>
-                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -42,9 +41,7 @@
                                                 <td>{{ substr($category['meta_title'] ?? '', 0,  30) }}</td>
                                                 <td>{{ substr($category['meta_description'] ?? '', 0,  40)}}</td>
                                                 <td>{{ substr($category['meta_keywords'] ?? '', 0,  60) }}</td>
-                                                <td>
-                                                    <label class="badge badge-info">On hold</label>
-                                                </td>
+
                                                 <td>
 
                                                     <li class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center">
@@ -54,7 +51,7 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" aria-labelledby="LanguageDropdown">
 
-                                                            <a class="btn btn-primary btn-icon-text" data-toggle="tooltip" title="Click to View Licence Details"
+                                                            <a class="btn btn-primary btn-icon-text" data-toggle="tooltip" title="Click to View Category Details"
                                                                href="{{ route('product.show',['product' => $category['slug']]) }}">View Products</a>
 
                                                             <button type="button" class="btn btn-warning btn-icon-text"
