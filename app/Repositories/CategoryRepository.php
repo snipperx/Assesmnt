@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
+
 class CategoryRepository implements CategoryRepositoryInterface
 {
 
@@ -12,14 +14,24 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function create(array $data)
     {
-        return Category::create($data);
+        DB::beginTransaction();
+        try {
+            $category = Category::create($data);
+            DB::commit();
+            return response()->json($category);
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function update(array $data, $id)
     {
-        $category = Category::findOrFail($id);
-        $category->update($data);
-        return $category;
+        return DB::transaction(function () use ($data, $id) {
+            $category = Category::findOrFail($id);
+            $category->update($data);
+            DB::commit();
+        },5);
     }
 
     public function delete($id)
